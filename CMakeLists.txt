@@ -24,22 +24,27 @@ elseif(MSVC)
 endif()
 
 # ImGui
-file(GLOB IMGUI_SOURCES thirdparty/imgui/*.cpp)
+file(GLOB IMGUI_SOURCES 
+    thirdparty/imgui/*.cpp
+    thirdparty/imgui/examples/imgui_impl_glfw.cpp
+    thirdparty/imgui/examples/imgui_impl_opengl3.cpp)
 file(GLOB IMGUI_HEADERS thirdparty/imgui/*.h)
 set(IMGUI_DIR
     thirdparty/imgui
-    thirdparty/imgui/backends)
+    thirdparty/imgui/examples)
 add_library(imgui STATIC
     ${IMGUI_SOURCES})
-target_include_directories(imgui PUBLIC
+include_directories(
     ${IMGUI_DIR})
 
 # guik from interactive_slam
 find_package(Eigen3 REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(PCL REQUIRED)
+find_package(glfw3 REQUIRED)
 
 file(GLOB INTERACTIVE_SLAM_SOURCES
+    thirdparty/interactive_slam/gl3w/*.c
     thirdparty/interactive_slam/glk/*.cpp
     thirdparty/interactive_slam/glk/loaders/*.cpp
     thirdparty/interactive_slam/glk/primitives/*.cpp
@@ -58,8 +63,12 @@ add_library(interactive_slam STATIC
     ${INTERACTIVE_SLAM_SOURCES})
 target_link_libraries(interactive_slam
     ${OPENGL_LIBRARIES}
-    Eigen3::Eigen)
-target_include_directories(interactive_slam PUBLIC
+    Eigen3::Eigen
+    ${EIGEN_}
+    ${glfw3_LIBRARIES}
+    ${PCL_LIBRARIES}
+    imgui;glfw;GLEW;GL)
+include_directories(
     ${INTERACTIVE_SLAM_DIR}
     ${Eigen3_INCLUDE_DIR}
     ${IMGUI_DIR}
@@ -68,7 +77,8 @@ target_include_directories(interactive_slam PUBLIC
 
 # interative-point-cloud
 add_executable(interative_point_cloud
-    src/interative_point_cloud.cpp
+    src/interactive_point_cloud.cpp
+    src/interactive_point_cloud_application.cpp
 )
 target_link_libraries(interative_point_cloud
     imgui
