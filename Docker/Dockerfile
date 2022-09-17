@@ -6,9 +6,12 @@ RUN apt-get install -y --no-install-recommends apt-transport-https apt-utils bui
 RUN update-ca-certificates
 
 # Install dependencies
+RUN apt-get update
 RUN apt-get install -y --no-install-recommends libglm-dev libeigen3-dev libopengl-dev libpcl-dev libglfw3-dev
 
 RUN git clone https://github.com/harderthan/interactive-point-cloud.git  --recurse-submodules
-RUN mkdir build
+RUN mkdir -p /interactive-point-cloud/build
+RUN cd /interactive-point-cloud/build && cmake .. && make
 WORKDIR /interactive-point-cloud/build
-RUN cmake /interactive-point-cloud && make
+
+CMD ["bash"]
