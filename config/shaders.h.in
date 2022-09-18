@@ -1,0 +1,13 @@
+#ifndef SHADERS_H
+#define SHADERS_H
+
+#include <string>
+
+#define INTERACTIVE_SLAM_SHADER_DIR @INTERACTIVE_SLAM_SHADER_DIR@
+
+std::string GetShadersDirPath() {
+    std::string path = "@INTERACTIVE_SLAM_SHADER_DIR@";
+    return path;
+}
+
+#endif  // SHADERS_H

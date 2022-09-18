@@ -9,7 +9,6 @@
 #include "guik/imgui_application.hpp"
 #include "guik/progress_modal.hpp"
 #include "imgui.h"
-
 #include "ui/draw_menu.hpp"
 
 namespace interactive_point_cloud {
@@ -35,8 +34,11 @@ class InteractivePointCloudApplication : public guik::Application {
   virtual void framebuffer_size_callback(const Eigen::Vector2i &size) override;
 
  private:
-  ui::DrawMenu draw_menu_;
-  // placeholder
+  // UI
+  std::unique_ptr<ui::DrawMenu> draw_menu_;
+
+  // Gl
+  std::unique_ptr<guik::GLCanvas> main_canvas;
 };
 
 }  // namespace interactive_point_cloud

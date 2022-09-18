@@ -67,6 +67,10 @@ set(INTERACTIVE_SLAM_DIR
     thirdparty/interactive_slam
     thirdparty/interactive_slam/gl3w)
 
+set(INTERACTIVE_SLAM_SHADER_DIR
+    "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/interactive_slam/shaders")
+configure_file(config/shaders.h.in shaders.h @ONLY)
+
 add_library(interactive_slam STATIC
     ${INTERACTIVE_SLAM_SOURCES})
 target_link_libraries(interactive_slam
@@ -97,3 +101,5 @@ add_executable(interative_point_cloud
 target_link_libraries(interative_point_cloud
     imgui
     interactive_slam)
+include_directories(
+    ${CMAKE_CURRENT_BINARY_DIR})
