@@ -1,6 +1,5 @@
 #include "interactive_point_cloud_application.hpp"
 
-#include "ui/draw_menu.hpp"
 
 namespace interactive_point_cloud {
 bool InteractivePointCloudApplication::init(const char *window_name,
@@ -14,7 +13,7 @@ bool InteractivePointCloudApplication::init(const char *window_name,
 }
 
 void InteractivePointCloudApplication::draw_ui() {
-    ui::DrawMenu();
+   draw_menu_.Draw();
 }
 
 void InteractivePointCloudApplication::draw_gl() {}

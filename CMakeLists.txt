@@ -37,6 +37,14 @@ add_library(imgui STATIC
 include_directories(
     ${IMGUI_DIR})
 
+# imgui-filebrowser
+file(GLOB IMGUI_FILEBROWSER_HEADERS
+    thirdparty/imgui-filebrowser/*.h)
+set(IMGUI_FILE_BROWSER_DIR
+    thirdparty/imgui-filebrowser)
+include_directories(
+    ${IMGUI_FILE_BROWSER_DIR})
+
 # guik from interactive_slam
 find_package(Eigen3 REQUIRED)
 find_package(OpenGL REQUIRED)
@@ -75,13 +83,13 @@ include_directories(
     ${OPENGL_INCLUDE_DIR}
     ${PCL_INCLUDE_DIRS})
 
+# interative-point-cloud
 file(GLOB GL_SOURCES src/gl/*.cpp)
 file(GLOB UI_SOURCES src/ui/*.cpp)
 file(GLOB APP_SOURCES
     src/interactive_point_cloud.cpp
     src/interactive_point_cloud_application.cpp)
 
-# interative-point-cloud
 add_executable(interative_point_cloud
     ${GL_SOURCES}
     ${UI_SOURCES}
