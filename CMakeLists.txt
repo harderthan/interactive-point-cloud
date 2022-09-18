@@ -24,7 +24,7 @@ elseif(MSVC)
 endif()
 
 # ImGui
-file(GLOB IMGUI_SOURCES 
+file(GLOB IMGUI_SOURCES
     thirdparty/imgui/*.cpp
     thirdparty/imgui/examples/imgui_impl_glfw.cpp
     thirdparty/imgui/examples/imgui_impl_opengl3.cpp)
@@ -75,12 +75,17 @@ include_directories(
     ${OPENGL_INCLUDE_DIR}
     ${PCL_INCLUDE_DIRS})
 
+file(GLOB GL_SOURCES src/gl/*.cpp)
+file(GLOB UI_SOURCES src/ui/*.cpp)
+file(GLOB APP_SOURCES
+    src/interactive_point_cloud.cpp
+    src/interactive_point_cloud_application.cpp)
+
 # interative-point-cloud
 add_executable(interative_point_cloud
-    src/interactive_point_cloud.cpp
-    src/interactive_point_cloud_application.cpp
-)
+    ${GL_SOURCES}
+    ${UI_SOURCES}
+    ${APP_SOURCES})
 target_link_libraries(interative_point_cloud
     imgui
-    interactive_slam
-)
+    interactive_slam)
