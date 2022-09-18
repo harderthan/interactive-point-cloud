@@ -13,7 +13,9 @@ bool InteractivePointCloudApplication::init(const char *window_name,
   return true;
 }
 
-void InteractivePointCloudApplication::draw_ui() {}
+void InteractivePointCloudApplication::draw_ui() {
+    ui::DrawMenu();
+}
 
 void InteractivePointCloudApplication::draw_gl() {}
 
