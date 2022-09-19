@@ -18,11 +18,11 @@ bool InteractivePointCloudApplication::init(const char *window_name,
   draw_menu_ = std::make_unique<ui::DrawMenu>();
 
   // Initialize OpenGL canvas.
-  
-  std::string data_directory = std::filesystem::current_path();;
   main_canvas =
       std::make_unique<guik::GLCanvas>(GetShadersDirPath(), framebuffer_size());
-
+  if (!main_canvas->ready()) {
+    close();
+  }
   return true;
 }
 

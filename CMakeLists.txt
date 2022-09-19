@@ -93,6 +93,10 @@ file(GLOB UI_SOURCES src/ui/*.cpp)
 file(GLOB APP_SOURCES
     src/interactive_point_cloud.cpp
     src/interactive_point_cloud_application.cpp)
+file(GLOB APP_HEADERS
+    src/*.hpp
+    src/gl/*.hpp
+    src/ui/*.hpp)
 
 add_executable(interative_point_cloud
     ${GL_SOURCES}

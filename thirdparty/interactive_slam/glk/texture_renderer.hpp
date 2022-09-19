@@ -22,7 +22,7 @@ public:
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(GL_FLOAT) * 3 * vertices.size(), vertices.data(), GL_STATIC_DRAW);
 
-    if (!shader.init(data_directory + "/shader/texture")) {
+    if (!shader.init(data_directory + "/texture")) {
       return;
     }
 

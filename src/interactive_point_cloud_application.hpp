@@ -9,7 +9,9 @@
 #include "guik/imgui_application.hpp"
 #include "guik/progress_modal.hpp"
 #include "imgui.h"
+
 #include "ui/draw_menu.hpp"
+#include "gl/draw_canvas.hpp"
 
 namespace interactive_point_cloud {
 

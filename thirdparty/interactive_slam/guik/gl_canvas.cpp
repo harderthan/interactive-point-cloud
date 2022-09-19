@@ -30,7 +30,7 @@ GLCanvas::GLCanvas(const std::string& data_directory, const Eigen::Vector2i& siz
   frame_buffer->add_color_buffer(GL_RGBA32I, GL_RGBA_INTEGER, GL_INT);
 
   shader.reset(new glk::GLSLShader());
-  if (!shader->init(data_directory + "/shader/rainbow")) {
+  if (!shader->init(data_directory + "/rainbow")) {
     shader.reset();
     return;
   }
