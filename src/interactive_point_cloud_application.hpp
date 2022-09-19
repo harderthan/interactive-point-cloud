@@ -3,15 +3,12 @@
 #include <memory>
 #include <string_view>
 
-#include "glk/lines.hpp"
-#include "guik/camera_control.hpp"
+#include "imgui.h"
 #include "guik/gl_canvas.hpp"
 #include "guik/imgui_application.hpp"
-#include "guik/progress_modal.hpp"
-#include "imgui.h"
 
-#include "ui/draw_menu.hpp"
 #include "gl/draw_canvas.hpp"
+#include "ui/draw_menu.hpp"
 
 namespace interactive_point_cloud {
 
