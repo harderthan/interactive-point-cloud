@@ -3,10 +3,9 @@
 #include <memory>
 #include <string_view>
 
-#include "imgui.h"
 #include "guik/gl_canvas.hpp"
 #include "guik/imgui_application.hpp"
-
+#include "imgui.h"
 #include "ui/draw_menu.hpp"
 
 namespace interactive_point_cloud {

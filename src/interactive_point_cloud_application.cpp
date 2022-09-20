@@ -3,7 +3,6 @@
 #include "glk/primitives/coordinate_system.hpp"
 #include "glk/primitives/grid.hpp"
 #include "glk/primitives/primitives.hpp"
-
 #include "shaders.h"
 
 namespace interactive_point_cloud {
@@ -27,7 +26,12 @@ bool InteractivePointCloudApplication::init(const char *window_name,
   return true;
 }
 
-void InteractivePointCloudApplication::draw_ui() { draw_menu_->Draw(); }
+void InteractivePointCloudApplication::draw_ui() {
+  draw_menu_->Draw();
+
+  // TODO(harderthan): check how to move mouse_control to draw_gl().
+  main_canvas->mouse_control();  // mouse_control() should be called on draw_ui().
+}
 
 void InteractivePointCloudApplication::draw_gl() {
   glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
@@ -55,9 +59,6 @@ void InteractivePointCloudApplication::draw_gl() {
       glk::Primitives::instance()->primitive(glk::Primitives::GRID);
   grid.draw(*main_canvas->shader);
 
-  // Control view point.
-  main_canvas->mouse_control();
-  
   // flush to the screen
   main_canvas->unbind();
   main_canvas->render_to_screen();
