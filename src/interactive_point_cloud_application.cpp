@@ -18,54 +18,60 @@ bool InteractivePointCloudApplication::init(const char *window_name,
   draw_menu_ = std::make_unique<ui::DrawMenu>();
 
   // Initialize OpenGL canvas.
-  main_canvas =
+  main_canvas_ =
       std::make_unique<guik::GLCanvas>(GetShadersDirPath(), framebuffer_size());
-  if (!main_canvas->ready()) {
+  if (!main_canvas_->ready()) {
     close();
   }
   return true;
 }
 
 void InteractivePointCloudApplication::draw_ui() {
-  draw_menu_->Draw();
+  draw_menu_->Draw(context_);
+
+  // Make point cloud buffer
+  auto point_cloud_file_name = context_.GetPointCloudFileName();
+  if(!point_cloud_file_name.empty()) {
+    point_cloud_buffer_ = std::make_unique<glk::PointCloudBuffer>(point_cloud_file_name);
+  }
 
   // TODO(harderthan): check how to move mouse_control to draw_gl().
-  main_canvas->mouse_control();  // mouse_control() should be called on draw_ui().
+  main_canvas_->mouse_control();  // mouse_control() should be called on draw_ui().
 }
 
 void InteractivePointCloudApplication::draw_gl() {
   glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
-  main_canvas->bind();
+  main_canvas_->bind();
 
   // draw coordinate system
-  main_canvas->shader->set_uniform("color_mode", 2);
-  main_canvas->shader->set_uniform(
+  main_canvas_->shader->set_uniform("color_mode", 2);
+  main_canvas_->shader->set_uniform(
       "model_matrix",
       (Eigen::UniformScaling<float>(3.0f) * Eigen::Isometry3f::Identity())
           .matrix());
   const auto &coord = glk::Primitives::instance()->primitive(
       glk::Primitives::COORDINATE_SYSTEM);
-  coord.draw(*main_canvas->shader);
+  coord.draw(*main_canvas_->shader);
 
   // draw grid
-  main_canvas->shader->set_uniform("color_mode", 1);
-  main_canvas->shader->set_uniform(
+  main_canvas_->shader->set_uniform("color_mode", 1);
+  main_canvas_->shader->set_uniform(
       "model_matrix", (Eigen::Translation3f(Eigen::Vector3f::UnitZ() * -0.02) *
                        Eigen::Isometry3f::Identity())
                           .matrix());
-  main_canvas->shader->set_uniform("material_color",
+  main_canvas_->shader->set_uniform("material_color",
                                    Eigen::Vector4f(0.8f, 0.8f, 0.8f, 1.0f));
   const auto &grid =
       glk::Primitives::instance()->primitive(glk::Primitives::GRID);
-  grid.draw(*main_canvas->shader);
+  grid.draw(*main_canvas_->shader);
+
+  // Draw point cloud data on canvas.
+  // point_cloud_buffer_->draw(*main_canvas_->shader);
 
   // flush to the screen
-  main_canvas->unbind();
-  main_canvas->render_to_screen();
+  main_canvas_->unbind();
+  main_canvas_->render_to_screen();
   glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
 }
-
-void InteractivePointCloudApplication::framebuffer_size_callback(
-    const Eigen::Vector2i &size) {}
 
 }  // namespace interactive_point_cloud

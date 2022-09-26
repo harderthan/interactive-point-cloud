@@ -106,4 +106,5 @@ target_link_libraries(interative_point_cloud
     imgui
     interactive_slam)
 include_directories(
+    ./src
     ${CMAKE_CURRENT_BINARY_DIR})

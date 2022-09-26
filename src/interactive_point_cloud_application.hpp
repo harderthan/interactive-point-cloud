@@ -3,6 +3,8 @@
 #include <memory>
 #include <string_view>
 
+#include "glk/pointcloud_buffer.hpp"
+
 #include "guik/gl_canvas.hpp"
 #include "guik/imgui_application.hpp"
 #include "imgui.h"
@@ -28,14 +30,17 @@ class InteractivePointCloudApplication : public guik::Application {
             const char *glsl_version = "#version 330") override;
   virtual void draw_ui() override;
   virtual void draw_gl() override;
-  virtual void framebuffer_size_callback(const Eigen::Vector2i &size) override;
 
  private:
+  Context context_;
+
   // UI
   std::unique_ptr<ui::DrawMenu> draw_menu_;
 
   // Gl
-  std::unique_ptr<guik::GLCanvas> main_canvas;
+  std::unique_ptr<guik::GLCanvas> main_canvas_;
+
+  std::unique_ptr<glk::PointCloudBuffer> point_cloud_buffer_;
 };
 
 }  // namespace interactive_point_cloud
