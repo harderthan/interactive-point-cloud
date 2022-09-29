@@ -1,11 +1,12 @@
 #include <string>
 
-#include "imgui.h"
-#include "imfilebrowser.h"
-
 #include "context.hpp"
+#include "imfilebrowser.h"
+#include "imgui.h"
 
 namespace ui {
+
+using interactive_point_cloud::Context;
 
 class DrawMenu {
  public:
@@ -15,7 +16,7 @@ class DrawMenu {
     file_browser_.SetTypeFilters({".pcd"});
   }
 
-  void Draw(interactive_point_cloud::Context &context) {
+  Context Draw() {
     if (ImGui::BeginMainMenuBar()) {
       if (ImGui::BeginMenu("File")) {
         if (ImGui::MenuItem("Open")) {
@@ -28,12 +29,15 @@ class DrawMenu {
 
     file_browser_.Display();
     if (file_browser_.HasSelected()) {
-      context.SetPointCloudFileName(file_browser_.GetSelected().string());
+      std::string file_name = file_browser_.GetSelected().string();
       file_browser_.ClearSelected();
+      return Context{file_name};
     }
   }
 
-  std::string GetSelectedFile() const { return file_browser_.GetSelected().string(); }
+  std::string GetSelectedFile() const {
+    return file_browser_.GetSelected().string();
+  }
 
  private:
   ImGui::FileBrowser file_browser_;

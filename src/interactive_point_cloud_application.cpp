@@ -27,12 +27,11 @@ bool InteractivePointCloudApplication::init(const char *window_name,
 }
 
 void InteractivePointCloudApplication::draw_ui() {
-  draw_menu_->Draw(context_);
+  Context context = draw_menu_->Draw();
 
-  // Make point cloud buffer
-  auto point_cloud_file_name = context_.GetPointCloudFileName();
-  if(!point_cloud_file_name.empty()) {
-    point_cloud_buffer_ = std::make_unique<glk::PointCloudBuffer>(point_cloud_file_name);
+  if(!context.point_cloud_file_name.empty()) {
+    point_cloud_buffer_ =
+        std::make_unique<glk::PointCloudBuffer>(context.point_cloud_file_name);
   }
 
   // TODO(harderthan): check how to move mouse_control to draw_gl().
