@@ -2,6 +2,8 @@
 
 The `interactive-point-cloud` is a utility project that support development of software that deals with 3D data. The interactive-point-cloud focus to handle semantic data labeled in point cloud data. This tool is able to used to draw or modify semantic data in a user-defined data structure.  
 
+![image01](./docs/images/interactive-point-cloud-app.png)
+
 ## How to build and run  
 
 ```
