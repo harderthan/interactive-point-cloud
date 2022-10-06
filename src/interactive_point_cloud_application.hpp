@@ -4,7 +4,6 @@
 #include <string_view>
 
 #include "glk/pointcloud_buffer.hpp"
-
 #include "guik/gl_canvas.hpp"
 #include "guik/imgui_application.hpp"
 #include "imgui.h"

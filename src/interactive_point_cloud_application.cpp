@@ -44,7 +44,7 @@ void InteractivePointCloudApplication::draw_gl() {
   glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
   main_canvas_->bind();
 
-  // draw coordinate system
+  // Draw coordinate system.
   main_canvas_->shader->set_uniform("color_mode", 2);
   main_canvas_->shader->set_uniform(
       "model_matrix",
@@ -54,7 +54,7 @@ void InteractivePointCloudApplication::draw_gl() {
       glk::Primitives::COORDINATE_SYSTEM);
   coord.draw(*main_canvas_->shader);
 
-  // draw grid
+  // Draw grid.
   main_canvas_->shader->set_uniform("color_mode", 1);
   main_canvas_->shader->set_uniform(
       "model_matrix", (Eigen::Translation3f(Eigen::Vector3f::UnitZ() * -0.02) *
@@ -74,7 +74,7 @@ void InteractivePointCloudApplication::draw_gl() {
     point_cloud_buffer_->draw(*main_canvas_->shader);
   }
 
-  // flush to the screen
+  // Flush to the screen.
   main_canvas_->unbind();
   main_canvas_->render_to_screen();
   glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
