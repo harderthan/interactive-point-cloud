@@ -65,7 +65,12 @@ void InteractivePointCloudApplication::draw_gl() {
   grid.draw(*main_canvas_->shader);
 
   // Draw point cloud data on canvas.
-  // point_cloud_buffer_->draw(*main_canvas_->shader);
+  if(point_cloud_buffer_) {
+    main_canvas_->shader->set_uniform("color_mode", 0);
+    main_canvas_->shader->set_uniform("model_matrix",
+                                      Eigen::Isometry3f::Identity().matrix());
+    point_cloud_buffer_->draw(*main_canvas_->shader);
+  }
 
   // flush to the screen
   main_canvas_->unbind();

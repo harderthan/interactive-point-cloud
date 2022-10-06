@@ -29,15 +29,13 @@ class DrawMenu {
 
     file_browser_.Display();
     if (file_browser_.HasSelected()) {
-      std::string file_name = file_browser_.GetSelected().string();
+      Context context{file_browser_.GetSelected().string()};
       file_browser_.ClearSelected();
-      return Context{file_name};
+      return context;
     }
-  }
 
-  std::string GetSelectedFile() const {
-    return file_browser_.GetSelected().string();
-  }
+    return Context{""};
+  };
 
  private:
   ImGui::FileBrowser file_browser_;
