@@ -28,13 +28,19 @@ class DrawMenu {
     }
 
     file_browser_.Display();
+
+    Context context{};
+    if(file_browser_.IsOpened()) {
+      context.file_menu.is_opened = true;
+    }
     if (file_browser_.HasSelected()) {
-      Context context{file_browser_.GetSelected().string()};
+      context.file_menu.point_cloud_file_name =
+          file_browser_.GetSelected().string();
       file_browser_.ClearSelected();
       return context;
     }
 
-    return Context{""};
+    return context;
   };
 
  private:

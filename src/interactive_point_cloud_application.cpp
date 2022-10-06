@@ -29,13 +29,15 @@ bool InteractivePointCloudApplication::init(const char *window_name,
 void InteractivePointCloudApplication::draw_ui() {
   Context context = draw_menu_->Draw();
 
-  if(!context.point_cloud_file_name.empty()) {
-    point_cloud_buffer_ =
-        std::make_unique<glk::PointCloudBuffer>(context.point_cloud_file_name);
+  if (!context.file_menu.point_cloud_file_name.empty()) {
+    point_cloud_buffer_ = std::make_unique<glk::PointCloudBuffer>(
+        context.file_menu.point_cloud_file_name);
   }
 
   // TODO(harderthan): check how to move mouse_control to draw_gl().
-  main_canvas_->mouse_control();  // mouse_control() should be called on draw_ui().
+  if (context.file_menu.is_opened == false) {
+    main_canvas_->mouse_control();
+  }
 }
 
 void InteractivePointCloudApplication::draw_gl() {
@@ -59,13 +61,13 @@ void InteractivePointCloudApplication::draw_gl() {
                        Eigen::Isometry3f::Identity())
                           .matrix());
   main_canvas_->shader->set_uniform("material_color",
-                                   Eigen::Vector4f(0.8f, 0.8f, 0.8f, 1.0f));
+                                    Eigen::Vector4f(0.8f, 0.8f, 0.8f, 1.0f));
   const auto &grid =
       glk::Primitives::instance()->primitive(glk::Primitives::GRID);
   grid.draw(*main_canvas_->shader);
 
   // Draw point cloud data on canvas.
-  if(point_cloud_buffer_) {
+  if (point_cloud_buffer_) {
     main_canvas_->shader->set_uniform("color_mode", 0);
     main_canvas_->shader->set_uniform("model_matrix",
                                       Eigen::Isometry3f::Identity().matrix());
