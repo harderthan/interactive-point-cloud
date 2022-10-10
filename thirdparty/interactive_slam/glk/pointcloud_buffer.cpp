@@ -7,14 +7,14 @@
 namespace glk {
 
 PointCloudBuffer::PointCloudBuffer(const std::string& cloud_filename) {
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZI>());
+  pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>());
   if(pcl::io::loadPCDFile(cloud_filename, *cloud)) {
     std::cerr << "error: failed to load " << cloud_filename << std::endl;
     num_points = 0;
     return;
   }
 
-  stride = sizeof(pcl::PointXYZI);
+  stride = sizeof(pcl::PointXYZ);
   num_points = cloud->size();
 
   glGenVertexArrays(1, &vao);
@@ -22,11 +22,11 @@ PointCloudBuffer::PointCloudBuffer(const std::string& cloud_filename) {
 
   glGenBuffers(1, &vbo);
   glBindBuffer(GL_ARRAY_BUFFER, vbo);
-  glBufferData(GL_ARRAY_BUFFER, cloud->size() * sizeof(pcl::PointXYZI), cloud->points.data(), GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, cloud->size() * sizeof(pcl::PointXYZ), cloud->points.data(), GL_STATIC_DRAW);
 }
 
-PointCloudBuffer::PointCloudBuffer(const pcl::PointCloud<pcl::PointXYZI>::ConstPtr& cloud) {
-  stride = sizeof(pcl::PointXYZI);
+PointCloudBuffer::PointCloudBuffer(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud) {
+  stride = sizeof(pcl::PointXYZ);
   num_points = cloud->size();
   std::cout << "num_points " << num_points << ", stride " << stride << std::endl;
 
@@ -35,7 +35,7 @@ PointCloudBuffer::PointCloudBuffer(const pcl::PointCloud<pcl::PointXYZI>::ConstP
 
   glGenBuffers(1, &vbo);
   glBindBuffer(GL_ARRAY_BUFFER, vbo);
-  glBufferData(GL_ARRAY_BUFFER, cloud->size() * sizeof(pcl::PointXYZI), cloud->points.data(), GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, cloud->size() * sizeof(pcl::PointXYZ), cloud->points.data(), GL_STATIC_DRAW);
 }
 
 PointCloudBuffer::~PointCloudBuffer() {

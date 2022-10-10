@@ -16,7 +16,7 @@ public:
     using Ptr = std::shared_ptr<PointCloudBuffer>;
 
     PointCloudBuffer(const std::string& cloud_filename);
-    PointCloudBuffer(const pcl::PointCloud<pcl::PointXYZI>::ConstPtr& cloud);
+    PointCloudBuffer(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud);
     ~PointCloudBuffer();
 
     void draw(glk::GLSLShader& shader);
