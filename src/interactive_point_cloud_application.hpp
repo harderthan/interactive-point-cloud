@@ -7,6 +7,8 @@
 #include "guik/gl_canvas.hpp"
 #include "guik/imgui_application.hpp"
 #include "imgui.h"
+
+#include "gl/coordinate_system.hpp"
 #include "ui/point_cloud_data.hpp"
 
 namespace interactive_point_cloud {

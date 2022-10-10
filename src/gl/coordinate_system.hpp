@@ -4,18 +4,13 @@
 #include "draw_canvas.hpp"
 
 namespace interactive_point_cloud::gl {
-class DrawCanvas {
+class CoordinateSystem : public DrawCanvas {
  public:
-  DrawCanvas(std::shared_ptr<guik::GLCanvas> main_canvas)
-      : main_canvas_(main_canvas) {}
+  CoordinateSystem(std::shared_ptr<guik::GLCanvas> main_canvas)
+      : DrawCanvas(main_canvas) {}
 
-  virtual void Draw() = 0;
-  virtual void Update() = 0;
-
-  guik::GLCanvas& GetMainCanvas() const { return *main_canvas_; }
-
- private:
-  std::shared_ptr<guik::GLCanvas> main_canvas_;
+  void Draw() {}
+  void Update() {}
 };
 
 }  // namespace interactive_point_cloud::gl
