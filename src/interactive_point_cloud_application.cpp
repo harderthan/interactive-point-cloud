@@ -19,10 +19,12 @@ bool InteractivePointCloudApplication::init(const char *window_name,
 
   // Initialize OpenGL canvas.
   main_canvas_ =
-      std::make_unique<guik::GLCanvas>(GetShadersDirPath(), framebuffer_size());
+      std::make_shared<guik::GLCanvas>(GetShadersDirPath(), framebuffer_size());
   if (!main_canvas_->ready()) {
     close();
   }
+
+  coordinate_system_ = std::make_unique<gl::CoordinateSystem>(main_canvas_);
   return true;
 }
 
@@ -46,27 +48,7 @@ void InteractivePointCloudApplication::draw_gl() {
   glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
   main_canvas_->bind();
 
-  // Draw coordinate system.
-  main_canvas_->shader->set_uniform("color_mode", 2);
-  main_canvas_->shader->set_uniform(
-      "model_matrix",
-      (Eigen::UniformScaling<float>(3.0f) * Eigen::Isometry3f::Identity())
-          .matrix());
-  const auto &coord = glk::Primitives::instance()->primitive(
-      glk::Primitives::COORDINATE_SYSTEM);
-  coord.draw(*main_canvas_->shader);
-
-  // Draw grid.
-  main_canvas_->shader->set_uniform("color_mode", 1);
-  main_canvas_->shader->set_uniform(
-      "model_matrix", (Eigen::Translation3f(Eigen::Vector3f::UnitZ() * -0.02) *
-                       Eigen::Isometry3f::Identity())
-                          .matrix());
-  main_canvas_->shader->set_uniform("material_color",
-                                    Eigen::Vector4f(0.8f, 0.8f, 0.8f, 1.0f));
-  const auto &grid =
-      glk::Primitives::instance()->primitive(glk::Primitives::GRID);
-  grid.draw(*main_canvas_->shader);
+  coordinate_system_->Draw();
 
   // Draw point cloud data on canvas.
   if (point_cloud_buffer_) {

@@ -2,6 +2,7 @@
 #define GL_DRAW_CANVAS_HPP_
 
 #include "guik/gl_canvas.hpp"
+#include "glk/primitives/primitives.hpp"
 
 namespace interactive_point_cloud::gl {
 class DrawCanvas {
@@ -10,7 +11,6 @@ class DrawCanvas {
       : main_canvas_(main_canvas) {}
 
   virtual void Draw() = 0;
-  virtual void Update() = 0;
 
   guik::GLCanvas& GetMainCanvas() const { return *main_canvas_; }
 

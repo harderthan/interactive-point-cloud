@@ -41,7 +41,8 @@ class InteractivePointCloudApplication : public guik::Application {
   std::unique_ptr<ui::PointCloudDataMenu> draw_menu_;
 
   // Gl
-  std::unique_ptr<guik::GLCanvas> main_canvas_;
+  std::shared_ptr<guik::GLCanvas> main_canvas_;
+  std::unique_ptr<gl::CoordinateSystem> coordinate_system_;
 };
 
 }  // namespace interactive_point_cloud
