@@ -1,7 +1,7 @@
-#ifndef GL_DRAW_CANVAS_HPP_
-#define GL_DRAW_CANVAS_HPP_
+#ifndef GL_COORDINATE_SYSTEM_HPP_
+#define GL_COORDINATE_SYSTEM_HPP_
 
-#include "guik/gl_canvas.hpp"
+#include "draw_canvas.hpp"
 
 namespace interactive_point_cloud::gl {
 class DrawCanvas {
@@ -20,4 +20,4 @@ class DrawCanvas {
 
 }  // namespace interactive_point_cloud::gl
 
-#endif   // GL_DRAW_CANVAS_HPP_
+#endif  // GL_COORDINATE_SYSTEM_HPP_

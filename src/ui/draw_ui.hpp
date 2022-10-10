@@ -1,9 +1,13 @@
+#ifndef UI_DRAW_UI_HPP_
+#define UI_DRAW_UI_HPP_
+
 #include <memory>
 #include <string>
 
 #include "context.hpp"
+#include "imgui.h"
 
-namespace ui {
+namespace interactive_point_cloud::ui {
 
 using interactive_point_cloud::Context;
 
@@ -20,4 +24,6 @@ class DrawUi {
   std::shared_ptr<Context> context_;
 };
 
-}  // namespace ui
+}  // namespace interactive_point_cloud::ui
+
+#endif  // UI_DRAW_UI_HPP_

@@ -1,11 +1,12 @@
+#ifndef UI_POINT_CLOUD_DATA_HPP_
+#define UI_POINT_CLOUD_DATA_HPP_
+
 #include <string>
 
-#include "context.hpp"
 #include "draw_ui.hpp"
 #include "imfilebrowser.h"
-#include "imgui.h"
 
-namespace ui {
+namespace interactive_point_cloud::ui {
 
 using interactive_point_cloud::Context;
 
@@ -59,4 +60,6 @@ class PointCloudDataMenu : public DrawUi {
   ImGui::FileBrowser file_browser_;
 };
 
-}  // namespace ui
+}  // namespace interactive_point_cloud::ui
+
+#endif  // UI_POINT_CLOUD_DATA_HPP_
