@@ -25,6 +25,8 @@ bool InteractivePointCloudApplication::init(const char *window_name,
   }
 
   coordinate_system_ = std::make_unique<gl::CoordinateSystem>(main_canvas_);
+  point_cloud_data_ = std::make_unique<gl::PointCloudData>(main_canvas_);
+
   return true;
 }
 
@@ -33,7 +35,7 @@ void InteractivePointCloudApplication::draw_ui() {
   draw_menu_->Update();
 
   if (context_->point_cloud_data_menu.is_updated) {
-    point_cloud_buffer_ = std::make_unique<glk::PointCloudBuffer>(
+    point_cloud_data_->SetPointCloudBuffer(
         context_->point_cloud_data_menu.file_name);
     context_->point_cloud_data_menu.is_updated = false;
   }
@@ -49,14 +51,7 @@ void InteractivePointCloudApplication::draw_gl() {
   main_canvas_->bind();
 
   coordinate_system_->Draw();
-
-  // Draw point cloud data on canvas.
-  if (point_cloud_buffer_) {
-    main_canvas_->shader->set_uniform("color_mode", 0);
-    main_canvas_->shader->set_uniform("model_matrix",
-                                      Eigen::Isometry3f::Identity().matrix());
-    point_cloud_buffer_->draw(*main_canvas_->shader);
-  }
+  point_cloud_data_->Draw();
 
   // Flush to the screen.
   main_canvas_->unbind();

@@ -20,10 +20,6 @@ class PointCloudData : public DrawCanvas {
     }
   }
 
-  void SetPointCloudBuffer(std::unique_ptr<glk::PointCloudBuffer> buffer) {
-    point_cloud_buffer_ = std::move(buffer);
-  }
-
   void SetPointCloudBuffer(const std::string& file_name) {
     point_cloud_buffer_ = std::make_unique<glk::PointCloudBuffer>(file_name);
   }
