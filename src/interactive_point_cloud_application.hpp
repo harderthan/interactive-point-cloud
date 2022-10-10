@@ -33,14 +33,13 @@ class InteractivePointCloudApplication : public guik::Application {
 
  private:
   std::shared_ptr<Context> context_;
+  std::unique_ptr<glk::PointCloudBuffer> point_cloud_buffer_;
 
   // UI
-  std::unique_ptr<ui::PointCloudData> draw_menu_;
+  std::unique_ptr<ui::PointCloudDataMenu> draw_menu_;
 
   // Gl
   std::unique_ptr<guik::GLCanvas> main_canvas_;
-
-  std::unique_ptr<glk::PointCloudBuffer> point_cloud_buffer_;
 };
 
 }  // namespace interactive_point_cloud

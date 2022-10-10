@@ -1,6 +1,7 @@
 #include <string>
 
 #include "context.hpp"
+#include "draw_ui.hpp"
 #include "imfilebrowser.h"
 #include "imgui.h"
 
@@ -8,47 +9,53 @@ namespace ui {
 
 using interactive_point_cloud::Context;
 
-class PointCloudData {
+class PointCloudDataMenu : public DrawUi {
  public:
-  PointCloudData(std::shared_ptr<Context> context) : context_(context) {
+  PointCloudDataMenu(std::shared_ptr<Context> context) : DrawUi(context) {
     // Set the config of file browser.
     file_browser_.SetTitle("file browser");
     file_browser_.SetTypeFilters({".pcd"});
   }
 
   void Draw() {
-    ImGui::Begin("Point Cloud Data Menu", nullptr, ImGuiWindowFlags_MenuBar);
+    ImGui::SetNextWindowSize(ImVec2(400, 200));
+    ImGui::SetNextWindowPos(ImVec2(10, 10));
+    ImGui::Begin("Point Cloud Data Menu", nullptr,
+                 ImGuiWindowFlags_NoMove | ImGuiWindowFlags_MenuBar);
     if (ImGui::BeginMenuBar()) {
       if (ImGui::BeginMenu("File")) {
-        if (ImGui::MenuItem("Open..", "Ctrl+O")) { 
+        if (ImGui::MenuItem("Open..", "Ctrl+O")) {
           file_browser_.Open();
-        }
-        if (ImGui::MenuItem("Save", "Ctrl+S")) { /* Do stuff */
         }
         ImGui::EndMenu();
       }
       ImGui::EndMenuBar();
     }
+    ImGui::BeginChild("Scrolling");
+    ImGui::Text("FILE: %s",
+                GetContext().point_cloud_data_menu.file_name.c_str());
+    ImGui::EndChild();
     ImGui::End();
-    file_browser_.Display();
   };
 
   void Update() {
+    file_browser_.Display();
+
     if (file_browser_.IsOpened()) {
-      context_->file_menu.is_opened = true;
+      GetContext().point_cloud_data_menu.is_opened = true;
     } else {
-      context_->file_menu.is_opened = false;
+      GetContext().point_cloud_data_menu.is_opened = false;
     }
 
     if (file_browser_.HasSelected()) {
-      context_->file_menu.point_cloud_file_name =
+      GetContext().point_cloud_data_menu.file_name =
           file_browser_.GetSelected().string();
       file_browser_.ClearSelected();
+      GetContext().point_cloud_data_menu.is_updated = true;
     }
   }
 
  private:
-  std::shared_ptr<Context> context_;
   ImGui::FileBrowser file_browser_;
 };
 

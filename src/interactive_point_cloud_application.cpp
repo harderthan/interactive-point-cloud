@@ -15,7 +15,7 @@ bool InteractivePointCloudApplication::init(const char *window_name,
   }
 
   // Initialize UI components.
-  draw_menu_ = std::make_unique<ui::PointCloudData>(context_);
+  draw_menu_ = std::make_unique<ui::PointCloudDataMenu>(context_);
 
   // Initialize OpenGL canvas.
   main_canvas_ =
@@ -30,14 +30,14 @@ void InteractivePointCloudApplication::draw_ui() {
   draw_menu_->Draw();
   draw_menu_->Update();
 
-  if (!context_->file_menu.point_cloud_file_name.empty()) {
+  if (context_->point_cloud_data_menu.is_updated) {
     point_cloud_buffer_ = std::make_unique<glk::PointCloudBuffer>(
-        context_->file_menu.point_cloud_file_name);
-    context_->file_menu.point_cloud_file_name.clear();
+        context_->point_cloud_data_menu.file_name);
+    context_->point_cloud_data_menu.is_updated = false;
   }
 
   // TODO(harderthan): check how to move mouse_control to draw_gl().
-  if (context_->file_menu.is_opened == false) {
+  if (context_->point_cloud_data_menu.is_opened == false) {
     main_canvas_->mouse_control();
   }
 }
