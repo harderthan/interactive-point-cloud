@@ -4,11 +4,11 @@
 #include <string_view>
 
 #include "glk/pointcloud_buffer.hpp"
-#include "guik/gl_canvas.hpp"
 #include "guik/imgui_application.hpp"
 #include "imgui.h"
 
 #include "gl/coordinate_system.hpp"
+#include "gl/point_cloud_data.hpp"
 #include "ui/point_cloud_data.hpp"
 
 namespace interactive_point_cloud {
@@ -43,6 +43,7 @@ class InteractivePointCloudApplication : public guik::Application {
   // Gl
   std::shared_ptr<guik::GLCanvas> main_canvas_;
   std::unique_ptr<gl::CoordinateSystem> coordinate_system_;
+  std::unique_ptr<gl::PointCloudData> point_cloud_data_;
 };
 
 }  // namespace interactive_point_cloud

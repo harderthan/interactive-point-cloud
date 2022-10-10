@@ -18,7 +18,7 @@ class CoordinateSystem : public DrawCanvas {
             .matrix());
     const auto &coord = glk::Primitives::instance()->primitive(
         glk::Primitives::COORDINATE_SYSTEM);
-    coord.draw(*GetMainCanvas().shader);
+    coord.draw(*(GetMainCanvas().shader));
 
     // Draw grid.
     GetMainCanvas().shader->set_uniform("color_mode", 1);
@@ -31,7 +31,7 @@ class CoordinateSystem : public DrawCanvas {
         "material_color", Eigen::Vector4f(0.8f, 0.8f, 0.8f, 1.0f));
     const auto &grid =
         glk::Primitives::instance()->primitive(glk::Primitives::GRID);
-    grid.draw(*GetMainCanvas().shader);
+    grid.draw(*(GetMainCanvas().shader));
   }
 };
 
