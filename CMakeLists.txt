@@ -26,12 +26,12 @@ endif()
 # ImGui
 file(GLOB IMGUI_SOURCES
     thirdparty/imgui/*.cpp
-    thirdparty/imgui/examples/imgui_impl_glfw.cpp
-    thirdparty/imgui/examples/imgui_impl_opengl3.cpp)
+    thirdparty/imgui/backends/imgui_impl_glfw.cpp
+    thirdparty/imgui/backends/imgui_impl_opengl3.cpp)
 file(GLOB IMGUI_HEADERS thirdparty/imgui/*.h)
 set(IMGUI_DIR
     thirdparty/imgui
-    thirdparty/imgui/examples)
+    thirdparty/imgui/backends)
 add_library(imgui STATIC
     ${IMGUI_SOURCES})
 include_directories(
