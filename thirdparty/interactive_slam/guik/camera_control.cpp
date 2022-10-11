@@ -9,12 +9,35 @@
 
 namespace guik {
 
-ArcCameraControl::ArcCameraControl() : center(0.0f, 0.0f, 0.0f), distance(10.0f), left_button_down(false), theta(0.0f), phi(-60.0f * M_PI / 180.0f) {
+ArcCameraControl::ArcCameraControl() : center(0.0f, 0.0f, 0.0f), step_size(0.02f), distance(10.0f), left_button_down(false), theta(0.0f), phi(-60.0f * M_PI / 180.0f) {
   left_button_down = false;
   middle_button_down = false;
 }
 
 ArcCameraControl::~ArcCameraControl() {}
+
+void ArcCameraControl::key(int key, bool down) {
+  Eigen::Vector3f translation;
+  if (key == ImGuiKey_W) {
+    center += Eigen::AngleAxisf(theta + M_PI_2, Eigen::Vector3f::UnitZ()) *
+              Eigen::Vector3f(0, 1, 0) * distance * step_size;
+  } else if (key == ImGuiKey_S) {
+    center += Eigen::AngleAxisf(theta + M_PI_2, Eigen::Vector3f::UnitZ()) *
+              Eigen::Vector3f(0, -1, 0) * distance * step_size;
+  } else if (key == ImGuiKey_A) {
+    center += Eigen::AngleAxisf(theta + M_PI_2, Eigen::Vector3f::UnitZ()) *
+              Eigen::Vector3f(-1, 0, 0) * distance * step_size;
+  } else if (key == ImGuiKey_D) {
+    center += Eigen::AngleAxisf(theta + M_PI_2, Eigen::Vector3f::UnitZ()) *
+              Eigen::Vector3f(1, 0, 0) * distance * step_size;
+  } else if (key == ImGuiKey_Space) {
+    center += Eigen::AngleAxisf(theta + M_PI_2, Eigen::Vector3f::UnitZ()) *
+              Eigen::Vector3f(0, 0, 1) * distance * step_size;
+  } else if (key == ImGuiKey_LeftShift) {
+    center += Eigen::AngleAxisf(theta + M_PI_2, Eigen::Vector3f::UnitZ()) *
+              Eigen::Vector3f(0, 0, -1) * distance * step_size;
+  }
+}
 
 void ArcCameraControl::mouse(const Eigen::Vector2i& p, int button, bool down) {
   if (button == 0) {

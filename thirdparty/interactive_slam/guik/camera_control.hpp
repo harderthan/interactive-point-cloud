@@ -5,6 +5,7 @@
 #include <GL/gl3w.h>
 #include <Eigen/Core>
 #include <Eigen/Geometry>
+#include <imgui.h>
 
 namespace guik {
 
@@ -15,6 +16,9 @@ namespace guik {
 class CameraControl {
 public:
   virtual ~CameraControl() {}
+
+  /** @brief keyboard button callback */
+  virtual void key(int button, bool down) = 0;
 
   /** @brief mouse button callback */
   virtual void mouse(const Eigen::Vector2i& p, int button, bool down) = 0;
@@ -41,6 +45,7 @@ public:
 
   virtual ~ArcCameraControl() override;
 
+  void key(int button, bool down) override;
   void mouse(const Eigen::Vector2i& p, int button, bool down) override;
   void drag(const Eigen::Vector2i& p, int button) override;
   void scroll(const Eigen::Vector2f& rel) override;
@@ -50,6 +55,7 @@ public:
 
 private:
   Eigen::Vector3f center;
+  float step_size;
   double distance;
 
   Eigen::Vector2i drag_last_pos;

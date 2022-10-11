@@ -144,6 +144,30 @@ void GLCanvas::mouse_control() {
   }
 }
 
+void GLCanvas::keyboard_control() {
+  ImGuiIO& io = ImGui::GetIO();
+  if (!io.WantCaptureKeyboard) {
+    if (ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_W))) {
+      camera_control->key(ImGui::GetKeyIndex(ImGuiKey_W), true);
+    }
+    if (ImGui::IsKeyPressed(ImGuiKey_S)) {
+      camera_control->key(ImGuiKey_S, true);
+    }
+    if (ImGui::IsKeyPressed(ImGuiKey_A)) {
+      camera_control->key(ImGuiKey_A, true);
+    }
+    if (ImGui::IsKeyPressed(ImGuiKey_D)) {
+      camera_control->key(ImGuiKey_D, true);
+    }
+    if (ImGui::IsKeyPressed(ImGuiKey_Space)) {
+      camera_control->key(ImGuiKey_Space, true);
+    }
+    if (ImGui::IsKeyPressed(ImGuiKey_LeftShift)) {
+      camera_control->key(ImGuiKey_LeftShift, true);
+    }
+  }
+}
+
 /**
  * @brief
  *
