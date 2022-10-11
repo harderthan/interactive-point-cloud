@@ -13,11 +13,12 @@ bool InteractivePointCloudApplication::init(const char *window_name,
   if (!Application::init(window_name, size, glsl_version)) {
     return false;
   }
-
+  
   // Iinitialize the context
   context_ = std::make_shared<Context>();
 
   // Initialize UI components.
+  app_status_ = std::make_unique<ui::AppStatus>(context_);
   draw_menu_ = std::make_unique<ui::PointCloudDataMenu>(context_);
 
   // Initialize OpenGL canvas.
@@ -33,6 +34,8 @@ bool InteractivePointCloudApplication::init(const char *window_name,
 }
 
 void InteractivePointCloudApplication::draw_ui() {
+  app_status_->Draw();
+  app_status_->Update();
   draw_menu_->Draw();
   draw_menu_->Update();
 

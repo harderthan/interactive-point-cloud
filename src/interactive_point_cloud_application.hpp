@@ -9,6 +9,8 @@
 
 #include "gl/coordinate_system.hpp"
 #include "gl/point_cloud_data.hpp"
+
+#include "ui/app_status.hpp"
 #include "ui/point_cloud_data.hpp"
 
 namespace interactive_point_cloud {
@@ -38,6 +40,7 @@ class InteractivePointCloudApplication : public guik::Application {
   std::unique_ptr<glk::PointCloudBuffer> point_cloud_buffer_;
 
   // UI
+  std::unique_ptr<ui::AppStatus> app_status_;
   std::unique_ptr<ui::PointCloudDataMenu> draw_menu_;
 
   // Gl

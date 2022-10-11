@@ -16,6 +16,8 @@ PointCloudBuffer::PointCloudBuffer(const std::string& cloud_filename) {
 
   stride = sizeof(pcl::PointXYZ);
   num_points = cloud->size();
+  std::cout << "loaded " << cloud_filename << std::endl;
+  std::cout << "number of points: " << num_points << std::endl;
 
   glGenVertexArrays(1, &vao);
   glBindVertexArray(vao);

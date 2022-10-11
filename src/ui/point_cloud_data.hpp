@@ -20,7 +20,7 @@ class PointCloudDataMenu : public DrawUi {
 
   void Draw() {
     ImGui::SetNextWindowSize(ImVec2(400, 200));
-    ImGui::SetNextWindowPos(ImVec2(10, 10));
+    ImGui::SetNextWindowPos(ImVec2(10, 210));
     ImGui::Begin("Point Cloud Data Menu", nullptr,
                  ImGuiWindowFlags_NoMove | ImGuiWindowFlags_MenuBar);
     if (ImGui::BeginMenuBar()) {
