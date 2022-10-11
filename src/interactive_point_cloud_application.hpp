@@ -34,8 +34,6 @@ class InteractivePointCloudApplication : public guik::Application {
   virtual void draw_gl() override;
 
  private:
-  void HandleMouseControl();
-
   std::shared_ptr<Context> context_;
   std::unique_ptr<glk::PointCloudBuffer> point_cloud_buffer_;
 
