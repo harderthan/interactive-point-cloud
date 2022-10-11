@@ -18,22 +18,22 @@ ArcCameraControl::~ArcCameraControl() {}
 
 void ArcCameraControl::key(int key, bool down) {
   Eigen::Vector3f translation;
-  if (key == ImGuiKey_W) {
+  if (key == ImGuiKey_W) {  // Forward.
     center += Eigen::AngleAxisf(theta + M_PI_2, Eigen::Vector3f::UnitZ()) *
               Eigen::Vector3f(0, 1, 0) * distance * step_size;
-  } else if (key == ImGuiKey_S) {
+  } else if (key == ImGuiKey_S) {  // Backward.
     center += Eigen::AngleAxisf(theta + M_PI_2, Eigen::Vector3f::UnitZ()) *
               Eigen::Vector3f(0, -1, 0) * distance * step_size;
-  } else if (key == ImGuiKey_A) {
+  } else if (key == ImGuiKey_A) {  // Left.
     center += Eigen::AngleAxisf(theta + M_PI_2, Eigen::Vector3f::UnitZ()) *
               Eigen::Vector3f(-1, 0, 0) * distance * step_size;
-  } else if (key == ImGuiKey_D) {
+  } else if (key == ImGuiKey_D) {  // Right.
     center += Eigen::AngleAxisf(theta + M_PI_2, Eigen::Vector3f::UnitZ()) *
               Eigen::Vector3f(1, 0, 0) * distance * step_size;
-  } else if (key == ImGuiKey_Space) {
+  } else if (key == ImGuiKey_Space) {  // Up.
     center += Eigen::AngleAxisf(theta + M_PI_2, Eigen::Vector3f::UnitZ()) *
               Eigen::Vector3f(0, 0, 1) * distance * step_size;
-  } else if (key == ImGuiKey_LeftShift) {
+  } else if (key == ImGuiKey_LeftShift) {  // Down.
     center += Eigen::AngleAxisf(theta + M_PI_2, Eigen::Vector3f::UnitZ()) *
               Eigen::Vector3f(0, 0, -1) * distance * step_size;
   }
