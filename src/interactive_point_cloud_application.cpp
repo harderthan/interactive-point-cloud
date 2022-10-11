@@ -42,10 +42,7 @@ void InteractivePointCloudApplication::draw_ui() {
     context_->point_cloud_data_menu.is_updated = false;
   }
 
-  // TODO(harderthan): check how to move mouse_control to draw_gl().
-  if (context_->point_cloud_data_menu.is_opened == false) {
-    main_canvas_->mouse_control();
-  }
+  HandleMouseControl();
 }
 
 void InteractivePointCloudApplication::draw_gl() {
@@ -59,6 +56,10 @@ void InteractivePointCloudApplication::draw_gl() {
   main_canvas_->unbind();
   main_canvas_->render_to_screen();
   glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
+}
+
+void InteractivePointCloudApplication::HandleMouseControl() {
+    main_canvas_->mouse_control();
 }
 
 }  // namespace interactive_point_cloud

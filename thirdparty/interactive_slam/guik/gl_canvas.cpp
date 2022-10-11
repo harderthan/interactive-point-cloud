@@ -122,23 +122,25 @@ void GLCanvas::render_to_screen(int color_buffer_id) { texture_renderer->draw(fr
  */
 void GLCanvas::mouse_control() {
   ImGuiIO& io = ImGui::GetIO();
-  auto mouse_pos = ImGui::GetMousePos();
-  auto drag_delta = ImGui::GetMouseDragDelta();
+  if(!io.WantCaptureMouse) {
+    auto mouse_pos = ImGui::GetMousePos();
+    auto drag_delta = ImGui::GetMouseDragDelta();
 
-  Eigen::Vector2i p(mouse_pos.x, mouse_pos.y);
+    Eigen::Vector2i p(mouse_pos.x, mouse_pos.y);
 
-  for (int i = 0; i < 3; i++) {
-    if (ImGui::IsMouseClicked(i)) {
-      camera_control->mouse(p, i, true);
-    }
-    if (ImGui::IsMouseReleased(i)) {
-      camera_control->mouse(p, i, false);
-    }
-    if (ImGui::IsMouseDragging(i)) {
-      camera_control->drag(p, i);
-    }
+    for (int i = 0; i < 3; i++) {
+      if (ImGui::IsMouseClicked(i)) {
+        camera_control->mouse(p, i, true);
+      }
+      if (ImGui::IsMouseReleased(i)) {
+        camera_control->mouse(p, i, false);
+      }
+      if (ImGui::IsMouseDragging(i)) {
+        camera_control->drag(p, i);
+      }
 
-    camera_control->scroll(Eigen::Vector2f(io.MouseWheel, io.MouseWheelH));
+      camera_control->scroll(Eigen::Vector2f(io.MouseWheel, io.MouseWheelH));
+    }
   }
 }
 
