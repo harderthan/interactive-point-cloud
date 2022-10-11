@@ -14,6 +14,9 @@ bool InteractivePointCloudApplication::init(const char *window_name,
     return false;
   }
 
+  // Iinitialize the context
+  context_ = std::make_shared<Context>();
+
   // Initialize UI components.
   draw_menu_ = std::make_unique<ui::PointCloudDataMenu>(context_);
 
@@ -23,7 +26,6 @@ bool InteractivePointCloudApplication::init(const char *window_name,
   if (!main_canvas_->ready()) {
     close();
   }
-
   coordinate_system_ = std::make_unique<gl::CoordinateSystem>(main_canvas_);
   point_cloud_data_ = std::make_unique<gl::PointCloudData>(main_canvas_);
 

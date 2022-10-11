@@ -25,7 +25,7 @@ class InteractivePointCloudApplication : public guik::Application {
       InteractivePointCloudApplication &&) = delete;
 
   explicit InteractivePointCloudApplication()
-      : Application(), context_(std::make_shared<Context>()) {}
+      : Application() {}
 
   // Override functions from guik::Application
   bool init(const char *window_name, const Eigen::Vector2i &size,
