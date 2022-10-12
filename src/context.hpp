@@ -7,6 +7,12 @@
 namespace interactive_point_cloud {
 
 struct Context {
+  struct AppStatus {
+    double coordinate_x = 0.0;
+    double coordinate_y = 0.0;
+    double coordinate_z = 0.0;
+  };
+  AppStatus app_status;
   struct PointCloudDataMenu {
     std::string file_name;
     bool is_updated = false;
