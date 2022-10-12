@@ -43,6 +43,7 @@ void InteractivePointCloudApplication::draw_ui() {
     point_cloud_data_->SetPointCloudBuffer(
         context_->point_cloud_data_menu.file_name);
     context_->point_cloud_data_menu.is_updated = false;
+    main_canvas_->set_view_point(point_cloud_data_->GetCenter());
   }
 
   if (context_->app_status.is_updated) {

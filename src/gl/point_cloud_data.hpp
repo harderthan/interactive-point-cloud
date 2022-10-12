@@ -24,6 +24,13 @@ class PointCloudData : public DrawCanvas {
     point_cloud_buffer_ = std::make_unique<glk::PointCloudBuffer>(file_name);
   }
 
+  Eigen::Vector3f GetCenter() const {
+    if (point_cloud_buffer_) {
+      return point_cloud_buffer_->GetCenter();
+    }
+    return Eigen::Vector3f::Zero();
+  }
+
  private:
   std::unique_ptr<glk::PointCloudBuffer> point_cloud_buffer_;
 };

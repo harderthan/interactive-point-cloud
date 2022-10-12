@@ -20,12 +20,13 @@ public:
     ~PointCloudBuffer();
 
     void draw(glk::GLSLShader& shader);
-
+    Eigen::Vector3f GetCenter() const { return center; }
 private:
     GLuint vao;
     GLuint vbo;
     int stride;
     int num_points;
+    Eigen::Vector3f center;
 };
 
 }

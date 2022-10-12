@@ -14,6 +14,14 @@ PointCloudBuffer::PointCloudBuffer(const std::string& cloud_filename) {
     return;
   }
 
+  // Calculate the center of the point cloud.
+  Eigen::Vector3f point(0, 0, 0);
+  for (const auto& p : cloud->points) {
+    point += Eigen::Vector3f(p.x, p.y, p.z);
+  }
+  point /= cloud->size();
+  center = point;
+
   stride = sizeof(pcl::PointXYZ);
   num_points = cloud->size();
   std::cout << "loaded " << cloud_filename << std::endl;
@@ -63,5 +71,7 @@ void PointCloudBuffer::draw(glk::GLSLShader& shader) {
   glBindBuffer(GL_ARRAY_BUFFER, 0);
   glDisableVertexAttribArray(0);
 }
+
+
 
 }  // namespace glk
