@@ -29,6 +29,9 @@ public:
   /** @brief mouse scroll callback */
   virtual void scroll(const Eigen::Vector2f& rel) = 0;
 
+  /** @brief set view point callback */
+  virtual void set(const Eigen::Vector3f& p) = 0;
+
   /** @brief camera view matrix */
   virtual Eigen::Matrix4f view_matrix() const = 0;
 };
@@ -49,6 +52,7 @@ public:
   void mouse(const Eigen::Vector2i& p, int button, bool down) override;
   void drag(const Eigen::Vector2i& p, int button) override;
   void scroll(const Eigen::Vector2f& rel) override;
+  void set(const Eigen::Vector3f& p) override;
 
   Eigen::Quaternionf rotation() const;
   Eigen::Matrix4f view_matrix() const override;

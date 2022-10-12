@@ -13,7 +13,7 @@ bool InteractivePointCloudApplication::init(const char *window_name,
   if (!Application::init(window_name, size, glsl_version)) {
     return false;
   }
-  
+
   // Iinitialize the context
   context_ = std::make_shared<Context>();
 
@@ -43,6 +43,13 @@ void InteractivePointCloudApplication::draw_ui() {
     point_cloud_data_->SetPointCloudBuffer(
         context_->point_cloud_data_menu.file_name);
     context_->point_cloud_data_menu.is_updated = false;
+  }
+
+  if (context_->app_status.is_updated) {
+    main_canvas_->set_view_point(Eigen::Vector3f(
+        context_->app_status.coordinate_x, context_->app_status.coordinate_y,
+        context_->app_status.coordinate_z));
+    context_->app_status.is_updated = false;
   }
 
   main_canvas_->mouse_control();

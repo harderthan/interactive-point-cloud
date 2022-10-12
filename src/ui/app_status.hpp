@@ -18,19 +18,26 @@ class AppStatus : public DrawUi {
   void Draw() {
     ImGui::SetNextWindowSize(ImVec2(400, 200));
     ImGui::SetNextWindowPos(ImVec2(10, 10));
-    ImGui::Begin("Status", nullptr, ImGuiWindowFlags_NoMove);
-    ImGui::InputTextWithHint(
-        "view_point_x",
-        std::to_string(GetContext().app_status.coordinate_x).c_str(),
-        view_point_x_.data(), 256);
-    ImGui::InputTextWithHint(
-        "view_point_y",
-        std::to_string(GetContext().app_status.coordinate_y).c_str(),
-        view_point_y_.data(), 256);
-    ImGui::InputTextWithHint(
-        "view_point_z",
-        std::to_string(GetContext().app_status.coordinate_z).c_str(),
-        view_point_z_.data(), 256);
+    if (ImGui::Begin("Status", nullptr, ImGuiWindowFlags_NoMove)) {
+      ImGui::Text("view_point_x");
+      ImGui::SameLine();
+      ImGui::InputTextWithHint(
+          "##view_point_x",
+          std::to_string(GetContext().app_status.coordinate_x).c_str(),
+          view_point_x_.data(), 256);
+      ImGui::Text("view_point_y");
+      ImGui::SameLine();
+      ImGui::InputTextWithHint(
+          "##view_point_y",
+          std::to_string(GetContext().app_status.coordinate_y).c_str(),
+          view_point_y_.data(), 256);
+      ImGui::Text("view_point_z");
+      ImGui::SameLine();
+      ImGui::InputTextWithHint(
+          "##view_point_z",
+          std::to_string(GetContext().app_status.coordinate_z).c_str(),
+          view_point_z_.data(), 256);
+    }
     ImGui::End();
   };
 
@@ -39,6 +46,7 @@ class AppStatus : public DrawUi {
       PullOutNumber(view_point_x_, GetContext().app_status.coordinate_x);
       PullOutNumber(view_point_y_, GetContext().app_status.coordinate_y);
       PullOutNumber(view_point_z_, GetContext().app_status.coordinate_z);
+      GetContext().app_status.is_updated = true;
     }
   }
 
@@ -53,7 +61,7 @@ class AppStatus : public DrawUi {
   }
   bool IsNumber(const std::string& str) {
     for (const auto& c : str) {
-      if (!isdigit(c) && c != '\0' && c != '.') {
+      if (!isdigit(c) && c != '\0' && c != '.' && c != '-') {
         return false;
       }
     }

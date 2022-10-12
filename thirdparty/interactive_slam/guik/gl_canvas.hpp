@@ -24,6 +24,7 @@ public:
 
   void reset_camera();
   void set_size(const Eigen::Vector2i& size);
+  void set_view_point(const Eigen::Vector3f& p);
   void keyboard_control();
   void mouse_control();
 

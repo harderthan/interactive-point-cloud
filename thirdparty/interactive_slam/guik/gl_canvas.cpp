@@ -67,6 +67,10 @@ void GLCanvas::set_size(const Eigen::Vector2i& size) {
   frame_buffer->add_color_buffer(GL_RGBA32I, GL_RGBA_INTEGER, GL_INT);
 }
 
+void GLCanvas::set_view_point(const Eigen::Vector3f& p) {
+  camera_control->set(p);
+}
+
 /**
  * @brief
  *

@@ -76,6 +76,11 @@ void ArcCameraControl::scroll(const Eigen::Vector2f& rel) {
   distance = std::max(0.1, distance);
 }
 
+void ArcCameraControl::set(const Eigen::Vector3f& p) {
+  center = p;
+}
+
+
 Eigen::Quaternionf ArcCameraControl::rotation() const { return Eigen::AngleAxisf(theta, Eigen::Vector3f::UnitZ()) * Eigen::AngleAxisf(phi, Eigen::Vector3f::UnitY()); }
 
 Eigen::Matrix4f ArcCameraControl::view_matrix() const {

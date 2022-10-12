@@ -11,6 +11,7 @@ struct Context {
     double coordinate_x = 0.0;
     double coordinate_y = 0.0;
     double coordinate_z = 0.0;
+    bool is_updated = false;
   };
   AppStatus app_status;
   struct PointCloudDataMenu {

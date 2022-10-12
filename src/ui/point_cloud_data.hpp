@@ -21,21 +21,26 @@ class PointCloudDataMenu : public DrawUi {
   void Draw() {
     ImGui::SetNextWindowSize(ImVec2(400, 200));
     ImGui::SetNextWindowPos(ImVec2(10, 210));
-    ImGui::Begin("Point Cloud Data Menu", nullptr,
-                 ImGuiWindowFlags_NoMove | ImGuiWindowFlags_MenuBar);
-    if (ImGui::BeginMenuBar()) {
-      if (ImGui::BeginMenu("File")) {
-        if (ImGui::MenuItem("Open..", "Ctrl+O")) {
-          file_browser_.Open();
+    if (ImGui::Begin("Point Cloud Data Menu", nullptr,
+                     ImGuiWindowFlags_NoMove | ImGuiWindowFlags_MenuBar)) {
+      if (ImGui::BeginMenuBar()) {
+        if (ImGui::BeginMenu("File")) {
+          if (ImGui::MenuItem("Open..", "Ctrl+O")) {
+            file_browser_.Open();
+          }
+          ImGui::EndMenu();
         }
-        ImGui::EndMenu();
+        ImGui::EndMenuBar();
       }
-      ImGui::EndMenuBar();
+      if (ImGui::BeginChild("Scrolling")) {
+        ImGui::Text("data: ");
+        ImGui::SameLine();
+        ImGui::TextColored(
+            ImVec4(0.5f, 0.5f, 0.5f, 1.0f), "%s",
+            GetContext().point_cloud_data_menu.file_name.c_str());
+      }
+      ImGui::EndChild();
     }
-    ImGui::BeginChild("Scrolling");
-    ImGui::Text("FILE: %s",
-                GetContext().point_cloud_data_menu.file_name.c_str());
-    ImGui::EndChild();
     ImGui::End();
   };
 
