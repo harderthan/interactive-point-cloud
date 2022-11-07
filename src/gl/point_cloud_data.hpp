@@ -25,7 +25,7 @@ class PointCloudData : public DrawCanvas {
   }
 
   Eigen::Vector3f GetCenter() const {
-    if (point_cloud_buffer_) {
+    if (point_cloud_buffer_ != nullptr) {
       return point_cloud_buffer_->GetCenter();
     }
     return Eigen::Vector3f::Zero();
