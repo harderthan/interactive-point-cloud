@@ -1,5 +1,5 @@
 #ifndef GL_POINT_CLOUD_DATA_HPP_
-#define GL_POINT_CLOUD_DATA_HPP__
+#define GL_POINT_CLOUD_DATA_HPP_
 
 #include "glk/pointcloud_buffer.hpp"
 
@@ -12,7 +12,7 @@ class PointCloudData : public DrawCanvas {
       : DrawCanvas(main_canvas) {}
 
   void Draw() {
-    if (point_cloud_buffer_) {
+    if (point_cloud_buffer_ != nullptr) {
       GetMainCanvas().shader->set_uniform("color_mode", 0);
       GetMainCanvas().shader->set_uniform(
           "model_matrix", Eigen::Isometry3f::Identity().matrix());
@@ -20,8 +20,8 @@ class PointCloudData : public DrawCanvas {
     }
   }
 
-  void SetPointCloudBuffer(const std::string& file_name) {
-    point_cloud_buffer_ = std::make_unique<glk::PointCloudBuffer>(file_name);
+  void SetPointCloudBuffer(std::unique_ptr<glk::PointCloudBuffer> point_cloud) {
+    point_cloud_buffer_ = std::move(point_cloud);
   }
 
   Eigen::Vector3f GetCenter() const {
@@ -37,4 +37,4 @@ class PointCloudData : public DrawCanvas {
 
 }  // namespace interactive_point_cloud::gl
 
-#endif  // GL_POINT_CLOUD_DATA_HPP__
+#endif  // GL_POINT_CLOUD_DATA_HPP_
