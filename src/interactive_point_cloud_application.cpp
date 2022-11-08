@@ -1,9 +1,14 @@
 #include "interactive_point_cloud_application.hpp"
 
+#include "gl/coordinate_system.hpp"
+#include "gl/point_cloud_data.hpp"
+#include "gl/road_networks.hpp"
 #include "glk/primitives/coordinate_system.hpp"
 #include "glk/primitives/grid.hpp"
 #include "glk/primitives/primitives.hpp"
 #include "shaders.h"
+#include "ui/app_status.hpp"
+#include "ui/point_cloud_data.hpp"
 
 namespace interactive_point_cloud {
 
@@ -29,6 +34,7 @@ bool InteractivePointCloudApplication::init(const char *window_name,
   }
   coordinate_system_ = std::make_unique<gl::CoordinateSystem>(main_canvas_);
   point_cloud_data_ = std::make_unique<gl::PointCloudData>(main_canvas_);
+  road_networks_ = std::make_unique<gl::RoadNetworks>(main_canvas_);
 
   return true;
 }
@@ -40,8 +46,9 @@ void InteractivePointCloudApplication::draw_ui() {
   draw_menu_->Update();
 
   if (context_->point_cloud_data_menu.is_updated) {
-    point_cloud_data_->SetPointCloudBuffer(
+    auto ptr = std::make_unique<glk::PointCloudBuffer>(
         context_->point_cloud_data_menu.file_name);
+    point_cloud_data_->SetPointCloudBuffer(std::move(ptr));
     main_canvas_->set_view_point(point_cloud_data_->GetCenter());
     context_->point_cloud_data_menu.is_updated = false;
   }
@@ -51,6 +58,15 @@ void InteractivePointCloudApplication::draw_ui() {
         context_->app_status.coordinate_x, context_->app_status.coordinate_y,
         context_->app_status.coordinate_z));
     context_->app_status.is_updated = false;
+  }
+
+  if (context_->road_networks_menu.is_updated) {
+    auto file = context_->road_networks_menu.file_name;
+    std::vector<Eigen::Vector3f, Eigen::aligned_allocator<Eigen::Vector3f>>
+        vertices;
+    vertices.push_back(Eigen::Vector3f::Zero());
+    road_networks_->SetRoadNetworks(vertices);
+    context_->road_networks_menu.is_updated = false;
   }
 
   main_canvas_->mouse_control();
@@ -63,6 +79,7 @@ void InteractivePointCloudApplication::draw_gl() {
 
   coordinate_system_->Draw();
   point_cloud_data_->Draw();
+  road_networks_->Draw();
 
   // Flush to the screen.
   main_canvas_->unbind();

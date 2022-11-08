@@ -9,6 +9,7 @@
 
 #include "gl/coordinate_system.hpp"
 #include "gl/point_cloud_data.hpp"
+#include "gl/road_networks.hpp"
 
 #include "ui/app_status.hpp"
 #include "ui/point_cloud_data.hpp"
@@ -47,6 +48,7 @@ class InteractivePointCloudApplication : public guik::Application {
   std::shared_ptr<guik::GLCanvas> main_canvas_;
   std::unique_ptr<gl::CoordinateSystem> coordinate_system_;
   std::unique_ptr<gl::PointCloudData> point_cloud_data_;
+  std::unique_ptr<gl::RoadNetworks> road_networks_;
 };
 
 }  // namespace interactive_point_cloud
